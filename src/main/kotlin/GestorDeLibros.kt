@@ -62,7 +62,6 @@ class catalogoLibros(archivo:CatalogoLibros, idLibro: gestionLibrosIU) {
     }
 
     fun mostrarInfoDeUnLibro() {
-        println("Introduzca un ID: ")
         var idLibro = id.introducirId()
         var infoLibro = cat.infoLibro(idLibro)
         if (!infoLibro.isEmpty())
