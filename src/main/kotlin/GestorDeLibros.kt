@@ -14,56 +14,56 @@ fun main() {
     val interfaz1=gestionLibrosIU1()
     var portatil = CatalogoLibrosXML("C:\\Users\\Benjamin\\IdeaProjects\\DAM1-6_5-BMG\\src\\main\\kotlin\\catalog.xml")
     //var casa = "/home/usuario/Documentos/workspace/IdeaProjects/IESRA-DAM/ejercicios/src/main/kotlin/un5/eje5_4/Catalog.xml"
-    val gestorDeLibros = gestionLibros(portatil,interfaz1)
+    val gestorDeLibros = catalogoLibros(portatil,interfaz1)
     gestorDeLibros.preguntarPorUnLibro()
     gestorDeLibros.mostrarInfoDeUnLibro()
 
 }
 interface CatalogoLibros{
-    open fun existeLibro(idLibro:String):Boolean
-    open fun infoLibro(idLibro: String): Map<String, Any>
+    fun existeLibro(idLibro:String):Boolean
+    fun infoLibro(idLibro: String): Map<String, Any>
 }
 interface gestionLibrosIU{
-    fun introducirDatos():String
-    fun presentarDatos(boolean: Boolean):String
+    fun introducirId():String
+    fun existeLibro(boolean: Boolean):String
 }
 
 class gestionLibrosIU1 :gestionLibrosIU{
-    override fun introducirDatos(): String {
+    override fun introducirId(): String {
         return JOptionPane.showInputDialog("Introduzca el ID:")
     }
 
-    override fun presentarDatos(boolean: Boolean): String {
+    override fun existeLibro(boolean: Boolean): String {
         return if (boolean) "Este libro existe!"
         else "Este libro no existe!!"
     }
 }
 class gestionLibrosIU2 :gestionLibrosIU{
-    override fun introducirDatos(): String {
+    override fun introducirId(): String {
         println("Introduzca el ID:")
         return readln()
     }
 
-    override fun presentarDatos(boolean: Boolean): String {
+    override fun existeLibro(boolean: Boolean): String {
         return if (boolean) "Este libro existe!"
         else "Este libro no existe!!"
     }
 }
-class gestionLibros(archivo:CatalogoLibros, idLibro: gestionLibrosIU) {
+class catalogoLibros(archivo:CatalogoLibros, idLibro: gestionLibrosIU) {
     var cat = archivo
     val id = idLibro
     fun preguntarPorUnLibro() {
-        val idLibro= id.introducirDatos()
+        val idLibro= id.introducirId()
         if (cat.existeLibro(idLibro))
-            println( id.presentarDatos(cat.existeLibro(idLibro)))
+            println( id.existeLibro(cat.existeLibro(idLibro)))
 
         else
-            println( id.presentarDatos(cat.existeLibro(idLibro)))
+            println( id.existeLibro(cat.existeLibro(idLibro)))
     }
 
     fun mostrarInfoDeUnLibro() {
         println("Introduzca un ID: ")
-        var idLibro = id.introducirDatos()
+        var idLibro = id.introducirId()
         var infoLibro = cat.infoLibro(idLibro)
         if (!infoLibro.isEmpty())
             println( infoLibro)
